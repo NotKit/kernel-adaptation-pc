@@ -4,6 +4,7 @@ Name:       kernel-adaptation-pc
 %define kernel_version_build %{kernel_version}-%{release}
 %define kernel_devel_dir %{_prefix}/src/kernels/%{kernel_version_build}
 %define kernel_arch x86
+%define kernel_defconfig x86_64_sailfish_defconfig
 
 Summary:    Kernel Adaptation PC
 Version:    5.0.21
@@ -18,6 +19,7 @@ BuildRequires:  flex
 BuildRequires:  pkgconfig(libssl)
 BuildRequires:  pkgconfig(ncurses)
 BuildRequires:  bc
+BuildRequires:  elfutils-libelf-devel
 Provides:   kernel = %{kernel_version}
 
 %description
@@ -37,7 +39,7 @@ Devel for PC kernel
 
 %build
 # These have been installed in kernel/arch/*/configs/
-make %{_arch}_sailfish_defconfig
+make %{kernel_defconfig}
 
 # Verify the config meets the current Mer requirements
 #/usr/bin/mer_verify_config .config
